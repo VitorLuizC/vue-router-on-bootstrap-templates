@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import IndexHTML from '@/views/index.html'
 import ItemHTML from '@/views/item.html'
 
 Vue.use(Router)
@@ -22,7 +21,8 @@ export default new Router({
     {
       path: '/',
       name: 'home',
-      component: toComponent(IndexHTML)
+      component: () => import('@/views/index.html')
+        .then(({ default: IndexHTML }) => toComponent(IndexHTML))
     },
     {
       path: '/item',
