@@ -1,8 +1,19 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from './views/Home.vue'
+import IndexHTML from '@/views/index.html'
+import ItemHTML from '@/views/item.html'
 
 Vue.use(Router)
+
+const toComponent = (html) => ({
+  render (createElement) {
+    return createElement('div', {
+      domProps: {
+        innerHTML: html
+      }
+    })
+  }
+});
 
 export default new Router({
   mode: 'history',
@@ -11,15 +22,12 @@ export default new Router({
     {
       path: '/',
       name: 'home',
-      component: Home
+      component: toComponent(IndexHTML)
     },
     {
-      path: '/about',
-      name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
+      path: '/item',
+      name: 'item',
+      component: toComponent(ItemHTML)
     }
   ]
 })
